@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Yahtzee!!!!!!</title>
+  <link rel="stylesheet" href="https://raw.githubusercontent.com/daneden/animate.css/master/animate.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+  <link rel="stylesheet" href="./style/style.css">
+  <script type='text/javascript' src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+  <script type='text/javascript' src='./script/starter.js'></script>
+</head>
+<body class="container">
+  <div>
+    <h1>Yahtzee!!!!</h1>
+  </div>
+  <div class="row">
+    <section class="six columns">
+      <button id="roll">Roll</button>
+      <button id="choose">Choose</button>
+      <table>
+        <tbody>
+          <tr>
+            <td><img id='0' class='inPlay' src="./assets/ace.png" alt=""></td>
+            <td><img id='1' class='inPlay' src="./assets/two.png" alt=""></td>
+            <td><img id='2' class='inPlay' src="./assets/three.png" alt=""></td>
+            <td><img id='3' class='inPlay' src="./assets/four.png" alt=""></td>
+            <td><img id='4' class='inPlay' src="./assets/five.png" alt=""></td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="start">Start Game</button>
+    </section>
+    <section class="six columns">
+        <table id="scores">
+          <tr>
+            <td class="score">0</td>
+            <td class="scoreCategory">Score</td>
+          </tr>
+          <tr>
+            <td class='score'>0</td>
+            <td class="scoreCategory">Aces</td>
+            <td class='score'>0</td>
+            <td class="scoreCategory">3-of-a-Kind</td>
+          </tr>
+          <tr>
+            <td class="score">0</td>
+            <td class="scoreCategory">Twos</td>
+            <td class="score">0</td>
+            <td class="scoreCategory">4-of-1-Kind</td>
+          </tr>
+          <tr>
+            <td class="score">0</td>
+            <td class="scoreCategory">Threes</td>
+            <td class="score">0</td>
+            <td class="scoreCategory">Small Straight</td>
+          </tr>
+          <tr>
+            <td class="score">0</td>
+            <td class="scoreCategory">Fours</td>
+            <td class="score">0</td>
+            <td class="scoreCategory">Large Straight</td>
+          </tr>
+          <tr>
+            <td class="score">0</td>
+            <td class="scoreCategory">Fives</td>
+            <td class="score">0</td>
+            <td class="scoreCategory">Full House</td>
+          </tr>
+          <tr>
+            <td class="score">0</td>
+            <td class="scoreCategory">Sixes</td>
+            <td class="score">0</td>
+            <td class="scoreCategory">Yahtzee!</td>
+          </tr>
+          <tr>
+            <td class="score">0</td>
+            <td class="scoreCategory">Bonus</td>
+            <td class="score">0</td>
+            <td class="scoreCategory">Chance</td>
+          </tr>
+        </table>
+    </section>
+  </div>
+
+
+</body>
+</html>

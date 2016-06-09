@@ -1,0 +1,40 @@
+body {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  margin: 0 auto;
+  padding: 30px;
+  background: linear-gradient(to top, red, black);
+  color: white;
+  text-shadow: 2px 2px black;
+  box-shadow: 4px 4px black;
+}
+
+.scoreCategory {
+  text-align: right;
+  padding: 10px;
+  background-color: green;
+}
+
+td {
+  margin: 0 auto;
+}
+
+#scores {
+  float: right;
+}
+img {
+  width: 60px;
+}
+
+.selected {
+  background-color: red;
+  z-index: 2;
+}
+
+section {
+  margin-top: 30px;
+
+}
