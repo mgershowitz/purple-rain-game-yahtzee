@@ -27,9 +27,15 @@ Yahtzee - This is met when the player has five of the same dice value. A yahtzee
 
 Chance -  This is score as a summation of the dice values rolled
 
+
 User Story - 
 As a user, I want to be able to play this game by myself or against the computer. 
 As a user, I want o be able to play the game for 13 rounds, with each round consisting of at most three rolls
 As a user, I want to be able to hold dice during a round
 As a user, I want to be able to select which category I can allocate my points to 
 As a user, I want to be able to log my high score.
+
+
+<!-- sources  -->
+https://www.html5andbeyond.com/jquery-toggle-click-function-simple-solution/
+toggle on/off switch
