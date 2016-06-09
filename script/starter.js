@@ -5,23 +5,51 @@ console.log('connected!');
 
 /////////////////Arrays////////////////////////
 
+var ace = "./assets/ace.png";
+var two = "./assets/two.png";
+var three = "./assets/three.png";
+var four = "./assets/four.png";
+var five = "./assets/five.png";
+var six = "./assets/six.png";
+var sAce ="./assets/aceSelected.png";
+var sTwo ="./assets/twoSelected.png";
+var sThree = "./assets/threeSelected.png";
+var sFour = "./assets/fourSelected.png";
+var sFive = "./assets/fiveSelected.png";
+var sSix = "./assets/sixSelected.png";
+
 var dice = [
-  "./assets/ace.png",
-  "./assets/two.png",
-  "./assets/three.png",
-  "./assets/four.png",
-  "./assets/five.png",
-  "./assets/six.png",
+  ace,
+  two,
+  three,
+  four,
+  five,
+  six
   ];
 
 var diceSelected = [
-  "./assets/aceSelected.png",
-  "./assets/twoSelected.png",
-  "./assets/threeSelected.png",
-  "./assets/fourSelected.png",
-  "./assets/fiveSelected.png",
-  "./assets/sixSelected.png",
+  sAce,
+  sTwo,
+  sThree,
+  sFour,
+  sFive,
+  sSix
   ];
+
+var scoreValues = {
+  ace: 1,
+  sAce: 1,
+  two: 2,
+  sTwo: 2,
+  three: 3,
+  sThree: 3,
+  four: 4,
+  sFour: 4,
+  five: 5,
+  sFive: 5,
+  six: 6,
+  Six: 6,
+  }
 
 /////////////Global Variables//////////////////
 
