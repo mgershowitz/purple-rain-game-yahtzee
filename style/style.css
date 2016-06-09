@@ -28,7 +28,7 @@ section {
 
 /*////////////////Buttons////////////////*/
 
-#roll{}
+#roll {}
 
 #choose{}
 
@@ -61,3 +61,7 @@ section {
 #scores {
   float: right;
 }
+
+#rollTurn{}
+
+#round{}
