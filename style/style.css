@@ -1,3 +1,5 @@
+/*////////////////This is for the general Layout of the board////////////////*/
+
 body {
   text-align: center;
 }
@@ -12,29 +14,50 @@ h1 {
   box-shadow: 4px 4px black;
 }
 
+td {
+  margin: 0 auto;
+}
+
+img {
+  width: 60px;
+}
+
+section {
+  margin-top: 30px;
+}
+
+/*////////////////Buttons////////////////*/
+
+#roll{}
+
+#choose{}
+
+#start{}
+
+/*////////////////Dice////////////////*/
+
+.selected {}
+
+.inPlay {}
+
+#a{}
+
+#b{}
+
+#c{}
+
+#d{}
+
+#e{}
+
+/*////////////////Score Board////////////////*/
+
 .scoreCategory {
   text-align: right;
   padding: 10px;
   background-color: green;
 }
 
-td {
-  margin: 0 auto;
-}
-
 #scores {
   float: right;
-}
-img {
-  width: 60px;
-}
-
-.selected {
-  background-color: red;
-  z-index: 2;
-}
-
-section {
-  margin-top: 30px;
-
 }
