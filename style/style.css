@@ -28,14 +28,24 @@ section {
 
 /*////////////////Buttons////////////////*/
 
+<<<<<<< HEAD
 #roll{}
+=======
+#roll {}
+>>>>>>> dice-select
 
 #choose{}
 
 #start{}
+<<<<<<< HEAD
 
 /*////////////////Dice////////////////*/
 
+=======
+
+/*////////////////Dice////////////////*/
+
+>>>>>>> dice-select
 .selected {}
 
 .inPlay {}
@@ -56,8 +66,19 @@ section {
   text-align: right;
   padding: 10px;
   background-color: green;
+<<<<<<< HEAD
+}
+
+#scores {
+  float: right;
+=======
+>>>>>>> dice-select
 }
 
 #scores {
   float: right;
 }
+
+#rollTurn{}
+
+#round{}
