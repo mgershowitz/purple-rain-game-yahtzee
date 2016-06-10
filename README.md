@@ -39,3 +39,6 @@ As a user, I want to be able to log my high score.
 <!-- sources  -->
 https://www.html5andbeyond.com/jquery-toggle-click-function-simple-solution/
 toggle on/off switch
+
+https://www.codecademy.com/courses/javascript-beginner-en-3bmfN/0/1?curriculum_id=506324b3a7dffd00020bf661
+how to search for values in an object and return a different value
