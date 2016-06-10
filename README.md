@@ -35,19 +35,16 @@ As a user, I want o be able to play the game for 13 rounds, with each round cons
 As a user, I want to be able to hold dice during a round
 As a user, I want to be able to select which category I can allocate my points to 
 As a user, I want to be able to log my high score.
-=======
-User Story - As a user, I want to be able to play this game by myself or against the computer. I want o be able to play the game for 13 rounds, with each round consisting of at most three rolls where I have the ability to select and save values on the dice throughout the round. I want to be able to choose which caregory I want in order to increase my score. I want a high score to be logged that can be beat and replaced.
 
-
-
->>>>>>> dice-select
 
 
 <!-- sources  -->
 https://www.html5andbeyond.com/jquery-toggle-click-function-simple-solution/
 toggle on/off switch
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dice-select
+https://www.codecademy.com/courses/javascript-beginner-en-3bmfN/0/1?curriculum_id=506324b3a7dffd00020bf661
+how to search for values in an object and return a different value
+
+http://stackoverflow.com/questions/3762589/fastest-javascript-summation
+how to add the numbers in an array.
