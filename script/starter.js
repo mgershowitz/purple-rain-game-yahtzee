@@ -151,17 +151,24 @@ var count = 0;
 function choose(e) {
   $('.scoreCategory').css('backgroundColor', 'red').css('color', 'white')
   $('#aces').on('click', function(e) {
-    for(var i = 0 ; i < $('img').length ; i++) {
-    if (getScore($('img').eq(i).attr('src') === 1)) {
-      aceArray.push(1);
+    for (var i = 0 ; i < $('img').length ; i++) {
+      if(getScore($('img').eq(i).attr('src')) === 1) {
+        aceArray.push(getScore($('img').eq(i).attr('src')))
+      }
     }
     for(var i = 0; i < aceArray.length; i++) {
-    count = count + array[i];
-    console.log(count = count + array[i]);
+      count = count + aceArray[i];
+      $('.score').eq(1).text(count)
+    }
+  })
+
 }
-}
-})
-}
+
+
+
+
+
+
 
 ///////////////Game Play///////////////////
 
