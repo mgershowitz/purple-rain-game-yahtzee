@@ -42,3 +42,6 @@ toggle on/off switch
 
 https://www.codecademy.com/courses/javascript-beginner-en-3bmfN/0/1?curriculum_id=506324b3a7dffd00020bf661
 how to search for values in an object and return a different value
+
+http://stackoverflow.com/questions/3762589/fastest-javascript-summation
+how to add the numbers in an array.
