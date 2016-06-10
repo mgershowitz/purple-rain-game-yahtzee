@@ -45,43 +45,6 @@ var dice = {
       }
   }
 
-
-
-
-
-// var dice = [
-//   ace,
-//   two,
-//   three,
-//   four,
-//   five,
-//   six
-//   ];
-
-// var diceSelected = [
-//   sAce,
-//   sTwo,
-//   sThree,
-//   sFour,
-//   sFive,
-//   sSix
-//   ];
-
-// var scoreValues = {
-//   ace: 1,
-//   sAce: 1,
-//   two: 2,
-//   sTwo: 2,
-//   three: 3,
-//   sThree: 3,
-//   four: 4,
-//   sFour: 4,
-//   five: 5,
-//   sFive: 5,
-//   six: 6,
-//   Six: 6,
-//   }
-
 /////////////Global Variables//////////////////
 
 var round = 0;
@@ -110,7 +73,7 @@ function roll(e) {
 }
 
 //This searches the src of the dice and returns the hold version of it
-var hold = function(src) {
+function hold(src) {
   for(var die in dice) {
     if(dice[die].play === src) {
       return dice[die].hold;
@@ -119,6 +82,17 @@ var hold = function(src) {
     }
   }
 };
+
+//Gets the score based on the image in the deice
+function getScore(src) {
+  for(var die in dice) {
+    if(dice[die].play === src || dice[die].hold === src) {
+      console.log(dice[die].points)
+      return dice[die].points;
+    }
+  }
+};
+
 
 //This function allows you to hold the dice after the first or second round. This function nulls the effects of the roll function for that particular die. This function changes the class to .selected and replaces the dice array with the diceSelected array while keeping the index static. This function is reversable. This function doesn't work before the first turn has ended.
 function holdDice(e) {
@@ -140,7 +114,7 @@ function holdDice(e) {
 //This has to be reset if the game is reset
 
 //This is a placeholder for the choose function. It won't actually even change turn = 0. This will occur once you decide what category you want to select. Currently function resets the board without resetting the game
-function choose(e) {
+function resetRound(e) {
   turn = 0
   round++;
   $('#rollTurn').text("Roll: " + 0);
@@ -157,6 +131,38 @@ function choose(e) {
   }
 };
 
+/*choose function()
+  highlights any categories not used yet when choose button is clicked. the categories are buttons that add points to thier left and add that to the total score. engages the reset the round function which was the choose function. When a category is used it changes class so that it cannot become clickable again. This will also prevent the highlighting
+Full House example logic
+  $('full house').on('click', function {
+    if(a=b=c && d=e ||
+       a=b=d && c=e ||
+       a=b=e && c=d ||
+       a=b=d && b=e ||
+       a=b=e && b=d ||
+       a=b=e && b=c ||
+       etc ....)
+  })
+Let's start with Upper scoring
+I can set a conditional that if score equals a number then add to total score of category and total score.
+  */
+var aceArray = [];
+var count = 0;
+function choose(e) {
+  $('.scoreCategory').css('backgroundColor', 'red').css('color', 'white')
+  $('#aces').on('click', function(e) {
+    for(var i = 0 ; i < $('img').length ; i++) {
+    if (getScore($('img').eq(i).attr('src') === 1)) {
+      aceArray.push(dice.ace.points);
+    }
+    for(var i = 0; i < aceArray.length; i++) {
+    count = count + array[i];
+    console.log(count = count + array[i]);
+}
+}
+})
+}
+
 ///////////////Game Play///////////////////
 
 $('#start').on('click', function (e){
@@ -165,7 +171,7 @@ $('#start').on('click', function (e){
   round = 0
   $('#start').css('backgroundColor', 'white').css('color', 'black' );
   $(this).text("Reset Game")
-  choose(e);//this only lives here for now
+  resetRound(e);//this only lives here for now
   $('#round').text("Round: " + 1)
   $('#choose').off('click', choose);
   $('#choose').on('click', choose);
