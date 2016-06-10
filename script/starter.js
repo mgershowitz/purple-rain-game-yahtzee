@@ -153,7 +153,7 @@ function choose(e) {
   $('#aces').on('click', function(e) {
     for(var i = 0 ; i < $('img').length ; i++) {
     if (getScore($('img').eq(i).attr('src') === 1)) {
-      aceArray.push(dice.ace.points);
+      aceArray.push(1);
     }
     for(var i = 0; i < aceArray.length; i++) {
     count = count + array[i];
