@@ -18,45 +18,75 @@ var sFour = "./assets/fourSelected.png";
 var sFive = "./assets/fiveSelected.png";
 var sSix = "./assets/sixSelected.png";
 
-var dice = [
-  ace,
-  two,
-  three,
-  four,
-  five,
-  six
-  ];
-
-var diceSelected = [
-  sAce,
-  sTwo,
-  sThree,
-  sFour,
-  sFive,
-  sSix
-  ];
-
-var scoreValues = {
-  ace: 1,
-  sAce: 1,
-  two: 2,
-  sTwo: 2,
-  three: 3,
-  sThree: 3,
-  four: 4,
-  sFour: 4,
-  five: 5,
-  sFive: 5,
-  six: 6,
-  Six: 6,
+var dice = {
+  ace: { play: ace,
+         hold: sAce,
+         points: 1
+       },
+  two: { play: two,
+         hold: sTwo,
+         points: 2
+       },
+  three: { play: three,
+         hold: sThree,
+         points: 3
+       },
+  four: { play: four,
+         hold: sFour,
+         points: 4
+       },
+  five: { play: five,
+         hold: sFive,
+         points: 5
+       },
+  six: { play: six,
+         hold: sSix,
+         points: 6
+      }
   }
+
+
+
+
+
+// var dice = [
+//   ace,
+//   two,
+//   three,
+//   four,
+//   five,
+//   six
+//   ];
+
+// var diceSelected = [
+//   sAce,
+//   sTwo,
+//   sThree,
+//   sFour,
+//   sFive,
+//   sSix
+//   ];
+
+// var scoreValues = {
+//   ace: 1,
+//   sAce: 1,
+//   two: 2,
+//   sTwo: 2,
+//   three: 3,
+//   sThree: 3,
+//   four: 4,
+//   sFour: 4,
+//   five: 5,
+//   sFive: 5,
+//   six: 6,
+//   Six: 6,
+//   }
 
 /////////////Global Variables//////////////////
 
 var round = 0;
 var turn = 0;
-$('#start').css('backgroundColor', 'red')
-.css('color', 'white' );
+$('#start').css('backgroundColor', 'red').css('color', 'white' );
 
 /////////////////Functions/////////////////////
 
@@ -64,42 +94,48 @@ $('#start').css('backgroundColor', 'red')
 function roll(e) {
   if(turn < 3) {
     for (var i = 0 ; i < $('.inPlay').length ; i++){
-      var diceRoll = dice[Math.floor(Math.random()*5)];
-      $('.inPlay').eq(i)
-      .attr('src', diceRoll);
+      var diceRoll = dice[Object.keys(dice)[Math.floor(Math.random()*Object.keys(dice).length)]].play;
+      $('.inPlay').eq(i).attr('src', diceRoll);
     }
   } else {
   }
-  if(turn<2) {
-    $('#roll').css('backgroundColor', 'red')
-    .css('color', 'white' );
+  if(turn < 2) {
+    $('#roll').css('backgroundColor', 'red').css('color', 'white' );
   } else {
-    $('#choose').css('backgroundColor', 'red')
-    .css('color', 'white' );
-    $('#roll').css('backgroundColor', 'white')
-    .css('color', 'black' );
+    $('#choose').css('backgroundColor', 'red').css('color', 'white' );
+    $('#roll').css('backgroundColor', 'white').css('color', 'black' );
   }
   turn++
   $('#rollTurn').text("Roll: " + turn);
 }
 
+//This searches the src of the dice and returns the hold version of it
+var hold = function(src) {
+  for(var die in dice) {
+    if(dice[die].play === src) {
+      return dice[die].hold;
+    } else if (dice[die].hold === src) {
+      return dice[die].play;
+    }
+  }
+};
+
 //This function allows you to hold the dice after the first or second round. This function nulls the effects of the roll function for that particular die. This function changes the class to .selected and replaces the dice array with the diceSelected array while keeping the index static. This function is reversable. This function doesn't work before the first turn has ended.
 function holdDice(e) {
   if(turn >= 1) {
     if($(this).attr('data-click-state') == 1) {
-    var selectedDiceIndex = diceSelected.indexOf($(this).attr('src'));
     $(this)
     .attr('data-click-state', 0)
-    .attr('src', dice[selectedDiceIndex])
+    .attr('src', hold($(this).attr('src')))
     .attr('class', 'inPlay');
     } else {
-    var diceIndex = dice.indexOf($(this).attr('src'));
     $(this)
     .attr('data-click-state', 1)
-    .attr('src', diceSelected[diceIndex])
+    .attr('src', hold($(this).attr('src')))
     .attr('class', 'selected');
     }
-  }
+
+}
 }
 //This has to be reset if the game is reset
 
@@ -113,10 +149,9 @@ function choose(e) {
   $('#roll').css('backgroundColor', 'red').css('color', 'white' );
   for (var i = 0 ; i < $('img').length ; i++) {
     if ($('img').eq(i).className = ('selected')) {
-      var selectedDiceIndex = diceSelected.indexOf($('img').eq(i).attr('src'))
       $('img').eq(i)
+      .attr('src', hold($('.selected').attr('src')))
       .attr('class', 'inPlay')
-      .attr('src', dice[selectedDiceIndex])
       .attr('data-click-state', 0);
     }
   }
