@@ -52,6 +52,7 @@ var turn = 0;
 $('#start').css('backgroundColor', 'red').css('color', 'white' );
 var upperArray = [];
 var count = 0;
+var categoryPoints
 
 /////////////////Functions/////////////////////
 
@@ -96,8 +97,10 @@ function getScore(src) {
 };
 
 function emptyArray (array) {
-while(array.length > 0) {
-array.pop()}}
+  while(array.length > 0) {
+    array.pop()
+  }
+}
 
 //This function allows you to hold the dice after the first or second round. This function nulls the effects of the roll function for that particular die. This function changes the class to .selected and replaces the dice array with the diceSelected array while keeping the index static. This function is reversable. This function doesn't work before the first turn has ended.
 function holdDice(e) {
@@ -128,10 +131,11 @@ function resetRound(e) {
   $('#roll').css('backgroundColor', 'red').css('color', 'white' );
   $('.scoreCategory').css('backgroundColor', 'white').css('color', 'black')
   emptyArray(upperArray);
+  count = 0
   for (var i = 0 ; i < $('img').length ; i++) {
     if ($('img').eq(i).className = ('selected')) {
       $('img').eq(i)
-      .attr('src', hold($('.selected').attr('src')))
+      .attr('src', hold($(this).attr('src')))
       .attr('class', 'inPlay')
       .attr('data-click-state', 0);
     }
@@ -156,10 +160,27 @@ I can set a conditional that if score equals a number then add to total score of
 
 
 /////////////Scoring is not correct and the twos do not appear in the right place for scoring!!!!!!!!!!
+
+// var getPoints = function(e) {
+//   for (var i = 0 ; i < $('img').length ; i++) {
+//       if(getScore($('img').eq(i).attr('src')) === categoryPoints) {
+//         upperArray.push(getScore($('img').eq(i).attr('src')))
+//       }
+//     }
+//     for(var i = 0; i < upperArray.length; i++) {
+//       count = count + upperArray[i];
+//       $('#acePoints').text(count)
+//     }
+//     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
+//     resetRound();
+//   })
+
+
 function choose(e) {
   $('.scoreCategory').css('backgroundColor', 'red').css('color', 'white')
+  ///////////Aces//////////////
   $('#aces').on('click', function(e) {
-    var categoryPoints = 1
+    categoryPoints = 1;
     for (var i = 0 ; i < $('img').length ; i++) {
       if(getScore($('img').eq(i).attr('src')) === categoryPoints) {
         upperArray.push(getScore($('img').eq(i).attr('src')))
@@ -167,16 +188,14 @@ function choose(e) {
     }
     for(var i = 0; i < upperArray.length; i++) {
       count = count + upperArray[i];
-      $('.score').eq(1).text(count)
+      $('#acePoints').text(count)
     }
-    $(this).attr('class', 'usedScoreCategory')
-    .attr('id', 'usedAces')
-    .css('backgroundColor', 'white').css('color', 'black')
-    .off('click');
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
     resetRound();
   })
-  $('#twos').on('click', function(e) {
-    var categoryPoints = 2
+  ///////////Twos/////////////
+  $('#twos').on('click',function(e) {
+    categoryPoints = 2;
     for (var i = 0 ; i < $('img').length ; i++) {
       if(getScore($('img').eq(i).attr('src')) === categoryPoints) {
         upperArray.push(getScore($('img').eq(i).attr('src')))
@@ -184,16 +203,78 @@ function choose(e) {
     }
     for(var i = 0; i < upperArray.length; i++) {
       count = count + upperArray[i];
-      $('.score').eq(categoryPoints).text(count)
+      $('#twoPoints').text(count)
     }
-    $(this).attr('class', 'usedScoreCategory')
-    .attr('id', 'usedTwos')
-    .css('backgroundColor', 'white').css('color', 'black')
-    .off('click');
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
     resetRound();
   })
-
+  ///////////threes///////////////
+  $('#threes').on('click',function(e) {
+    categoryPoints = 3;
+    for (var i = 0 ; i < $('img').length ; i++) {
+      if(getScore($('img').eq(i).attr('src')) === categoryPoints) {
+        upperArray.push(getScore($('img').eq(i).attr('src')))
+      }
+    }
+    for(var i = 0; i < upperArray.length; i++) {
+      count = count + upperArray[i];
+      $('#threePoints').text(count)
+    }
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
+    resetRound();
+  })
+  ///////////fours/////////////////
+  $('#fours').on('click',function(e) {
+    categoryPoints = 4;
+    for (var i = 0 ; i < $('img').length ; i++) {
+      if(getScore($('img').eq(i).attr('src')) === categoryPoints) {
+        upperArray.push(getScore($('img').eq(i).attr('src')))
+      }
+    }
+    for(var i = 0; i < upperArray.length; i++) {
+      count = count + upperArray[i];
+      $('#fourPoints').text(count)
+    }
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
+    resetRound();
+  })
+  /////////////fives//////////////////
+  $('#fives').on('click',function(e) {
+    categoryPoints = 5;
+    for (var i = 0 ; i < $('img').length ; i++) {
+      if(getScore($('img').eq(i).attr('src')) === categoryPoints) {
+        upperArray.push(getScore($('img').eq(i).attr('src')))
+      }
+    }
+    for(var i = 0; i < upperArray.length; i++) {
+      count = count + upperArray[i];
+      $('#fivePoints').text(count)
+    }
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
+    resetRound();
+  })
+  /////////////sixes/////////////////
+  $('#sixes').on('click', function(e) {
+    categoryPoints = 6;
+    for (var i = 0 ; i < $('img').length ; i++) {
+      if(getScore($('img').eq(i).attr('src')) === categoryPoints) {
+        upperArray.push(getScore($('img').eq(i).attr('src')))
+      }
+    }
+    for(var i = 0; i < upperArray.length; i++) {
+      count = count + upperArray[i];
+      $('#sixPoints').text(count)
+    }
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
+    resetRound();
+  })
+  // })
+  // $('#threes').on('click', function(e) {
+  //   var categoryPoints = 3
+  //   getPoints(e);
+  // })
 }
+
 
 
 
