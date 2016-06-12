@@ -63,6 +63,7 @@ var fourth;
 var fifth;
 var six;
 var highScore = 0;
+var diceSound = "./assets/diceThrow.wav"
 
 /////////////////Functions/////////////////////
 
