@@ -51,7 +51,9 @@ var round = 0;
 var turn = 0;
 $('#start').css('backgroundColor', 'red').css('color', 'white' );
 var upperArray = [];
+var totalScore = [];
 var count = 0;
+var total = 0
 var categoryPoints
 var addSscore
 var first
@@ -81,9 +83,8 @@ function roll(e) {
       $('.inPlay').eq(i).attr('src', diceRoll);
     }
     turn++
-  } else {
   }
-  if(turn < 2) {
+  if(turn < 3) {
     $('#roll').css('backgroundColor', 'red').css('color', 'white' );
   } else {
     $('#choose').css('backgroundColor', 'red').css('color', 'white' );
@@ -91,6 +92,7 @@ function roll(e) {
   }
   $('#rollTurn').text("Roll: " + turn);
 }
+
 
 //This searches the src of the dice and returns the hold version of it
 function hold(src) {
@@ -142,6 +144,7 @@ function holdDice(e) {
 function resetRound(e) {
   turn = 0
   round = round + 1;
+  $('.scoreCategory').off('click');
   $('#rollTurn').text("Roll: " + 0);
   $('#round').text("Round: " + round)
   $('#choose').css('backgroundColor', 'white').css('color', 'black' );
@@ -159,22 +162,11 @@ function resetRound(e) {
   }
 };
 
-/*choose function()
-  highlights any categories not used yet when choose button is clicked. the categories are buttons that add points to thier left and add that to the total score. engages the reset the round function which was the choose function. When a category is used it changes class so that it cannot become clickable again. This will also prevent the highlighting
-Full House example logic
-  $('full house').on('click', function {
-    if(a=b=c && d=e ||
-       a=b=d && c=e ||
-       a=b=e && c=d ||
-       a=b=d && b=e ||
-       a=b=e && b=d ||
-       a=b=e && b=c ||
-       etc ....)
-  })
-Let's start with Upper scoring
-I can set a conditional that if score equals a number then add to total score of category and total score.
-  */
-
+//////////////TotalScore////////////////////////
+function addToTotal(points) {
+  total+= points;
+  $('#total').text(total)
+}
 
 
 //////////////UpperScores///////////////////////
@@ -189,9 +181,12 @@ function getPoints(e) {
     addScore.text(count)
   }
   //$(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
+
+  addToTotal(count);
   resetRound();
   }
 
+//////////////LowerScores////////////////////
 function threeOfAKind(e) {
   getDice();
   if((first === second && first === third) ||
@@ -204,18 +199,32 @@ function threeOfAKind(e) {
     /*8*/(second === third && second === fifth) ||
     /*9*/(second === fourth && second === fifth) ||
     /*10*/(third === fourth && third === fifth)) {
-    addScore.text(25);/*These points are wrong*/
-  }
+    for (var i = 0 ; i < $('img').length ; i++) {
+          upperArray.push(getScore($('img').eq(i).attr('src')))
+        }
+      for(var i = 0; i < upperArray.length; i++) {
+        count = count + upperArray[i];
+      }
+      addScore.text(count)
+      addToTotal(count);
+    }
   resetRound();
 }
 
 function fourOfAKind(e) {
   getDice();
   if((first === second && first === third && first === fourth) ||
-    /*2*/(first === second && first === fourth && first === fifth) ||
-    /*7*/(second === third && second === fourth && second === fifth)) {
-    addScore.text(50);/*score also not right*/
-  }
+    (first === second && first === fourth && first === fifth) ||
+    (second === third && second === fourth && second === fifth)) {
+      for (var i = 0 ; i < $('img').length ; i++) {
+          upperArray.push(getScore($('img').eq(i).attr('src')))
+        }
+      for(var i = 0; i < upperArray.length; i++) {
+        count = count + upperArray[i];
+      }
+      addScore.text(count)
+      addToTotal(count);
+    }
   resetRound();
 }
 
@@ -231,41 +240,67 @@ function fullHouse(e) {
     /*8*/(second === third && second === fifth && first === fourth) ||
     /*9*/(second === fourth && second === fifth && first === third) ||
     /*10*/(third === fourth && third === fifth && first === second)) {
-    $('#fullHousePoints').text(25);
+  $('#fullHousePoints').text(25);
+  addToTotal(25);
   }
   resetRound();
 }
-//This one is a problem :(
-// function smStraight(e) {
-//   getDice();
-//   if ((first !== (second || third || (fourth || fifth)) &&
-//     second !== (third || fourth) &&
-//     third !== fourth) ||
-//     (second !== (third || fourth || fifth) &&
-//     second !== (fourth || fifth) &&
-//     third !== (fifth) {
-//     $('#lgStraightPoints').text(40);
-//   }
-//   resetRound();
-// }
-///LG straight's logic is going to be that none of the dice match
+//something is wrong
+function smStraight(e) {
+  getDice();
+  if (((first < 5 && second < 5 && third < 5 && fourth < 5 && fifth < 5) &&
+      (((first !== (second || third || fourth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (third || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (second || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (second || third || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((second !== (third || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)))) ||
+    (((first < 6 && first > 1) && (second < 6 && second > 1) && (third < 6 && third > 1) && (fourth < 6 && fourth > 1) && (fifth < 6 && fifth > 1)) &&
+      (((first !== (second || third || fourth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (third || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (second || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (second || third || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((second !== (third || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)))) ||
+    ((first > 2 && second > 2 && third > 2 && fourth > 2 && fifth > 2) &&
+      (((first !== (second || third || fourth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (third || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (second || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((first !== (second || third || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
+      ((second !== (third || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth))))) {
+    $('#smStraightPoints').text(30);
+    addToTotal(30);
+  }
+  resetRound();
+}
+//something is wrong
 function lgStraight(e) {
   getDice();
-  if (first !== (second || third || fourth || fifth) &&
-    second !== (third || fourth || fifth) &&
-    third !== (fourth || fifth) &&
-    fourth !== fifth) {
-    $('#lgStraightPoints').text(40);
+  if((first !== 1 && second !== 1 && third !== 1 && fourth !== 1 && fifth !== 1) ||
+    (first !== 6 && second !== 6 && third !== 6 && fourth !== 6 && fifth !== 6)) {
+    if (first !== (second || third || fourth || fifth) &&
+      second !== (third || fourth || fifth) &&
+      third !== (fourth || fifth) &&
+      fourth !== fifth) {
+        $('#lgStraightPoints').text(40);
+        addToTotal(40);
+    }
   }
   resetRound();
 }
 
+
 function yahtzee(e) {
   getDice();
   if(first === second && first === third && first === fourth && first === fifth) {
-    $('#yahtzee').text(50);
+    $('#yahtzeePoints').text(50);
+    addToTotal(50);
   }
   resetRound();
+}
+
+function bonus(e) {
+  if($('#yahtzeePoints').text() === 50) {
+    $('#bonusPoints').text(100);
+  }
 }
 
 function chance(e) {
@@ -273,8 +308,9 @@ function chance(e) {
   upperArray.push(first, second, third, fourth, fifth);
   for(var i = 0; i < upperArray.length; i++) {
     count = count + upperArray[i];
-    $('#chancePoints').text(count)
   }
+    $('#chancePoints').text(count);
+    addToTotal(count);
   //$(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
   resetRound();
   }
@@ -288,62 +324,79 @@ function choose(e) {
     categoryPoints = 1;
     addScore = $('#acePoints');
     getPoints();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#twos').on('click', function(e) {
     categoryPoints = 2;
     addScore = $('#twoPoints');
     getPoints();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedTwos').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#threes').on('click', function(e) {
     addScore = $('#threePoints');
     categoryPoints = 3;
     getPoints();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedThrees').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#fours').on('click', function(e) {
     addScore = $('#fourPoints');
     categoryPoints = 4;
     getPoints();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedFours').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#fives').on('click', function(e) {
     addScore = $('#fivePoints');
     categoryPoints = 5;
     getPoints();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedFives').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#sixes').on('click', function(e) {
     addScore = $('#sixPoints');
     categoryPoints = 6;
     getPoints();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedSixes').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#3Kind').on('click', function(e) {
     addScore = $('#3KindPoints');
     threeOfAKind();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'used3Kind').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#4Kind').on('click', function(e) {
     addScore = $('#4KindPoints');
-    threeOfAKind();
+    fourOfAKind();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'used4Kind').css('backgroundColor', 'white').css('color', 'black').off('click');
+  })
+  $('#smStraight').on('click', function(e) {
+    smStraight();
+    bonus();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedSmStraight').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#lgStraight').on('click', function(e) {
     lgStraight();
-    $(this).attr('class', 'usedScoreCategory').attr('id', 'used4Kind').css('backgroundColor', 'white').css('color', 'black').off('click');
+    bonus();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedLgStraight').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#fullHouse').on('click', function(e) {
     fullHouse();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedFullHouse').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#yahtzee').on('click', function(e) {
     yahtzee();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedyahtzee').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#chance').on('click', function(e) {
     chance();
+    bonus();
     $(this).attr('class', 'usedScoreCategory').attr('id', 'usedchance').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
 }
