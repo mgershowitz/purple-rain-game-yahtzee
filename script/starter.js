@@ -65,6 +65,7 @@ var six
 
 /////////////////Functions/////////////////////
 
+
 function getDice() {
   first = getScore($('img').eq(0).attr('src'));
   second = getScore($('img').eq(1).attr('src'));
@@ -74,6 +75,21 @@ function getDice() {
   six = getScore($('img').eq(5).attr('src'));
 }
 
+function resetIds() {
+  $('#usedAces').attr('id', 'aces');
+  $('#usedTwos').attr('id', 'twos');
+  $('#usedThrees').attr('id', 'threes');
+  $('#usedFours').attr('id', 'fours');
+  $('#usedFives').attr('id', 'fives');
+  $('#usedSixes').attr('id', 'sixes');
+  $('#used3Kind').attr('id', '3Kind');
+  $('#used4Kind').attr('id', '4Kind');
+  $('#usedSmStraight').attr('id', 'smStraight');
+  $('#usedLgStraight').attr('id', 'lgStraight');
+  $('#usedFullHouse').attr('id', 'fullHouse');
+  $('#usedYahtzee').attr('id', 'yahtzee');
+  $('#usedChance').attr('id', 'chance');
+}
 //This variable sets random dice from the dice array for each of the five playing dice. This function only affects dice in the inPlay class. This function becomes disabled after three turns. This function increases turn by one.
 
 function roll(e) {
@@ -160,11 +176,14 @@ function resetRound(e) {
       .attr('data-click-state', 0);
     }
   }
+  if (round > 13) {
+    alert("You finished! Here's your score: " + $('#total').text());
+  }
 };
 
 //////////////TotalScore////////////////////////
 function addToTotal(points) {
-  total+= points;
+  total += points;
   $('#total').text(total)
 }
 
@@ -392,12 +411,12 @@ function choose(e) {
   $('#yahtzee').on('click', function(e) {
     yahtzee();
     bonus();
-    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedyahtzee').css('backgroundColor', 'white').css('color', 'black').off('click');
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedYahtzee').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#chance').on('click', function(e) {
     chance();
     bonus();
-    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedchance').css('backgroundColor', 'white').css('color', 'black').off('click');
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedChance').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
 }
 
@@ -409,7 +428,10 @@ $('#start').on('click', function (e){
   round = 0
   $('#start').css('backgroundColor', 'white').css('color', 'black' );
   $(this).text("Reset Game")
-  resetRound(e);//this only lives here for now
+  resetRound(e);
+  $('.score').text(0)
+  resetIds();
+  $('.usedScoreCategory').attr('class', 'scoreCategory');
   $('#round').text("Round: " + 1)
   $('#choose').off('click', choose);
   $('#choose').on('click', choose);
