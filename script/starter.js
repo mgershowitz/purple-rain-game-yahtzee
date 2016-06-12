@@ -45,13 +45,6 @@ var dice = {
       }
   }
 
-var first = getScore($('img').eq(0).attr('src'));
-var second = getScore($('img').eq(1).attr('id'));
-var third = getScore($('img').eq(2).attr('id'));
-var fourth = getScore($('img').eq(3).attr('id'));
-var fifth = getScore($('img').eq(4).attr('id'));
-var six = getScore($('img').eq(5).attr('id'));
-
 /////////////Global Variables//////////////////
 
 var round = 0;
@@ -61,16 +54,33 @@ var upperArray = [];
 var count = 0;
 var categoryPoints
 var addSscore
+var first
+var second
+var third
+var fourth
+var fifth
+var six
 
 /////////////////Functions/////////////////////
 
+function getDice() {
+  first = getScore($('img').eq(0).attr('src'));
+  second = getScore($('img').eq(1).attr('src'));
+  third = getScore($('img').eq(2).attr('src'));
+  fourth = getScore($('img').eq(3).attr('src'));
+  fifth = getScore($('img').eq(4).attr('src'));
+  six = getScore($('img').eq(5).attr('src'));
+}
+
 //This variable sets random dice from the dice array for each of the five playing dice. This function only affects dice in the inPlay class. This function becomes disabled after three turns. This function increases turn by one.
+
 function roll(e) {
   if(turn < 3) {
     for (var i = 0 ; i < $('.inPlay').length ; i++){
       var diceRoll = dice[Object.keys(dice)[Math.floor(Math.random()*Object.keys(dice).length)]].play;
       $('.inPlay').eq(i).attr('src', diceRoll);
     }
+    turn++
   } else {
   }
   if(turn < 2) {
@@ -79,8 +89,6 @@ function roll(e) {
     $('#choose').css('backgroundColor', 'red').css('color', 'white' );
     $('#roll').css('backgroundColor', 'white').css('color', 'black' );
   }
-  turn++
-  //I need to figure out how to stop this from increasing after the three rolls have happened
   $('#rollTurn').text("Roll: " + turn);
 }
 
@@ -133,7 +141,7 @@ function holdDice(e) {
 //This is a placeholder for the choose function. It won't actually even change turn = 0. This will occur once you decide what category you want to select. Currently function resets the board without resetting the game
 function resetRound(e) {
   turn = 0
-  round++;
+  round = round + 1;
   $('#rollTurn').text("Roll: " + 0);
   $('#round').text("Round: " + round)
   $('#choose').css('backgroundColor', 'white').css('color', 'black' );
@@ -180,15 +188,12 @@ function getPoints(e) {
     count = count + upperArray[i];
     addScore.text(count)
   }
-  $(this).attr('class', 'usedScoreCategory')
-  .attr('id', 'usedAces')
-  .css('backgroundColor', 'white')
-  .css('color', 'black')
-  .off('click');
-  //resetRound();
+  //$(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
+  resetRound();
   }
 
 function threeOfAKind(e) {
+  getDice();
   if((first === second && first === third) ||
     /*2*/(first === second && first === fourth) ||
     /*3*/(first === second && first === fifth) ||
@@ -201,21 +206,21 @@ function threeOfAKind(e) {
     /*10*/(third === fourth && third === fifth)) {
     addScore.text(25);/*These points are wrong*/
   }
-  $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
-    resetRound();
+  resetRound();
 }
 
 function fourOfAKind(e) {
+  getDice();
   if((first === second && first === third && first === fourth) ||
     /*2*/(first === second && first === fourth && first === fifth) ||
     /*7*/(second === third && second === fourth && second === fifth)) {
     addScore.text(50);/*score also not right*/
   }
-  $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
-    resetRound();
+  resetRound();
 }
 
 function fullHouse(e) {
+  getDice();
   if((first === second && first === third && fourth === fifth) ||
     /*2*/(first === second && first === fourth && third === fifth) ||
     /*3*/(first === second && first === fifth && third === fourth) ||
@@ -226,12 +231,53 @@ function fullHouse(e) {
     /*8*/(second === third && second === fifth && first === fourth) ||
     /*9*/(second === fourth && second === fifth && first === third) ||
     /*10*/(third === fourth && third === fifth && first === second)) {
-    addScore.text(25);
+    $('#fullHousePoints').text(25);
   }
-  $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
-    resetRound();
+  resetRound();
 }
+//This one is a problem :(
+// function smStraight(e) {
+//   getDice();
+//   if ((first !== (second || third || (fourth || fifth)) &&
+//     second !== (third || fourth) &&
+//     third !== fourth) ||
+//     (second !== (third || fourth || fifth) &&
+//     second !== (fourth || fifth) &&
+//     third !== (fifth) {
+//     $('#lgStraightPoints').text(40);
+//   }
+//   resetRound();
+// }
 ///LG straight's logic is going to be that none of the dice match
+function lgStraight(e) {
+  getDice();
+  if (first !== (second || third || fourth || fifth) &&
+    second !== (third || fourth || fifth) &&
+    third !== (fourth || fifth) &&
+    fourth !== fifth) {
+    $('#lgStraightPoints').text(40);
+  }
+  resetRound();
+}
+
+function yahtzee(e) {
+  getDice();
+  if(first === second && first === third && first === fourth && first === fifth) {
+    $('#yahtzee').text(50);
+  }
+  resetRound();
+}
+
+function chance(e) {
+  getDice();
+  upperArray.push(first, second, third, fourth, fifth);
+  for(var i = 0; i < upperArray.length; i++) {
+    count = count + upperArray[i];
+    $('#chancePoints').text(count)
+  }
+  //$(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
+  resetRound();
+  }
 
 /*choose function()
   highlights any categories not used yet when choose button is clicked. the categories are buttons that add points to thier left and add that to the total score. engages the reset the round function which was the choose function. When a category is used it changes class so that it cannot become clickable again. This will also prevent the highlighting*/
@@ -242,43 +288,63 @@ function choose(e) {
     categoryPoints = 1;
     addScore = $('#acePoints');
     getPoints();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedAces').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#twos').on('click', function(e) {
     categoryPoints = 2;
     addScore = $('#twoPoints');
     getPoints();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedTwos').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#threes').on('click', function(e) {
     addScore = $('#threePoints');
     categoryPoints = 3;
     getPoints();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedThrees').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#fours').on('click', function(e) {
     addScore = $('#fourPoints');
     categoryPoints = 4;
     getPoints();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedFours').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#fives').on('click', function(e) {
     addScore = $('#fivePoints');
     categoryPoints = 5;
     getPoints();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedFives').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#sixes').on('click', function(e) {
     addScore = $('#sixPoints');
     categoryPoints = 6;
     getPoints();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedSixes').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#3Kind').on('click', function(e) {
     addScore = $('#3KindPoints');
     threeOfAKind();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'used3Kind').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#4Kind').on('click', function(e) {
     addScore = $('#4KindPoints');
     threeOfAKind();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'used4Kind').css('backgroundColor', 'white').css('color', 'black').off('click');
+  })
+  $('#lgStraight').on('click', function(e) {
+    lgStraight();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'used4Kind').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
   $('#fullHouse').on('click', function(e) {
-    addScore = $('#fullHousePoints');
     fullHouse();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedFullHouse').css('backgroundColor', 'white').css('color', 'black').off('click');
+  })
+  $('#yahtzee').on('click', function(e) {
+    yahtzee();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedyahtzee').css('backgroundColor', 'white').css('color', 'black').off('click');
+  })
+  $('#chance').on('click', function(e) {
+    chance();
+    $(this).attr('class', 'usedScoreCategory').attr('id', 'usedchance').css('backgroundColor', 'white').css('color', 'black').off('click');
   })
 }
 
