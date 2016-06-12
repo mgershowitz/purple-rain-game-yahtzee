@@ -53,15 +53,16 @@ $('#start').css('backgroundColor', 'red').css('color', 'white' );
 var upperArray = [];
 var totalScore = [];
 var count = 0;
-var total = 0
-var categoryPoints
-var addSscore
-var first
-var second
-var third
-var fourth
-var fifth
-var six
+var total = 0;
+var categoryPoints;
+var addSscore;
+var first;
+var second;
+var third;
+var fourth;
+var fifth;
+var six;
+var highScore = 0;
 
 /////////////////Functions/////////////////////
 
@@ -178,6 +179,11 @@ function resetRound(e) {
   }
   if (round > 13) {
     alert("You finished! Here's your score: " + $('#total').text());
+    var newScore = $('#total').text();
+    if (newScore > highScore) {
+      highScore = newScore
+      $('highScore').text('High Score: ' + newScore);
+    }
   }
 };
 
@@ -293,16 +299,16 @@ function smStraight(e) {
 //something is wrong
 function lgStraight(e) {
   getDice();
-  if((first !== 1 && second !== 1 && third !== 1 && fourth !== 1 && fifth !== 1) ||
-    (first !== 6 && second !== 6 && third !== 6 && fourth !== 6 && fifth !== 6)) {
-    if (first !== (second || third || fourth || fifth) &&
+  if(((first !== 1 && second !== 1 && third !== 1 && fourth !== 1 && fifth !== 1) ||
+    (first !== 6 && second !== 6 && third !== 6 && fourth !== 6 && fifth !== 6)) &&
+    ((first !== (second || third || fourth || fifth) &&
       second !== (third || fourth || fifth) &&
       third !== (fourth || fifth) &&
-      fourth !== fifth) {
+      fourth !== fifth))) {
         $('#lgStraightPoints').text(40);
         addToTotal(40);
     }
-  }
+
   resetRound();
 }
 
@@ -426,11 +432,13 @@ $('#start').on('click', function (e){
   console.log("Begin!!")
   turn = 0
   round = 0
+  total = 0
   $('#start').css('backgroundColor', 'white').css('color', 'black' );
   $(this).text("Reset Game")
   resetRound(e);
   $('.score').text(0)
   resetIds();
+  $('#highScore').text("High Score: " + highScore);
   $('.usedScoreCategory').attr('class', 'scoreCategory');
   $('#round').text("Round: " + 1)
   $('#choose').off('click', choose);
