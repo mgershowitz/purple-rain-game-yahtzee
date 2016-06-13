@@ -34,17 +34,20 @@ As a user, I want o be able to play the game for 13 rounds, with each round cons
 As a user, I want to be able to hold dice during a round
 As a user, I want to be able to select which category I can allocate my points to 
 As a user, I want to be able to log my high score.
-Will this commit?
 
 
 
 <!-- sources  -->
+By: Simon
+How to toggle an on and off switch
 https://www.html5andbeyond.com/jquery-toggle-click-function-simple-solution/
-toggle on/off switch
 
-
+How to build a search function within an object
+By Codecademy - javascript lessons
 https://www.codecademy.com/courses/javascript-beginner-en-3bmfN/0/1?curriculum_id=506324b3a7dffd00020bf661
-how to search for values in an object and return a different value
 
+How to sum the numbers in an array
+BY: vol7ron
 http://stackoverflow.com/questions/3762589/fastest-javascript-summation
-how to add the numbers in an array.
+
+
