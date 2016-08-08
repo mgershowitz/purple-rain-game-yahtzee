@@ -272,7 +272,7 @@ function fullHouse(e) {
   resetRound();
 }
 //something is wrong
-function smStraight(e) {
+function smStraight2(e) {
   getDice();
   if (((first < 5 && second < 5 && third < 5 && fourth < 5 && fifth < 5) &&
       (((first !== (second || third || fourth)) && (second !== (third || fourth)) && (third !== fourth)) ||
@@ -292,6 +292,23 @@ function smStraight(e) {
       ((first !== (second || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
       ((first !== (second || third || fifth)) && (second !== (third || fourth)) && (third !== fourth)) ||
       ((second !== (third || fourth || fifth)) && (second !== (third || fourth)) && (third !== fourth))))) {
+    $('#smStraightPoints').text(30);
+    addToTotal(30);
+  }
+  resetRound();
+}
+
+function smStraight(e) {
+  var arr = [first, second, third, fourth, fifth];
+  arr.sort();
+  var current = arr[0];
+  var strikes = 0;
+  for (var i = 1; i < arr.length; i++) {
+    if (arr[i] != current + 1) {
+      strikes++;
+    }
+  }
+  if (strikes < 2) {
     $('#smStraightPoints').text(30);
     addToTotal(30);
   }
