@@ -2,7 +2,7 @@
 
 body {
   text-align: center;
-  background-image: url("https://pixabay.com/static/uploads/photo/2015/07/31/20/41/background-869596_960_720.png");
+  background-image: url("../assets/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -110,7 +110,7 @@ section {
 }
 #scores {
   padding: 10px;
-  background-image: url('https://pixabay.com/static/uploads/photo/2015/07/31/20/41/background-869596_960_720.png');
+  background-image: url('../assets/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
